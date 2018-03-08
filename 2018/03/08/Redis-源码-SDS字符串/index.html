@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -94,18 +94,17 @@
 
 
 
-<meta name="description" content="使用Hexo的原因第三方的博客总是有各种各样的限制，不妨使用Hexo对于自己想要的模板与样式进行个性化定制">
-<meta name="keywords" content="Hexo">
+<meta name="description" content="title: Redis 源码–SDS字符串date: 2018-03-08 17:11:53tags: [Redis] categories: Redis#Redis–SDS字符串搬运自简书的旧文，重新进行了一下排版(https://www.jianshu.com/p/28719b3e157c) ##SDS的结构定义C 中，字符串是以字符数组的形式表示的，其结尾是空字符‘\0’,用以标识这个字">
 <meta property="og:type" content="article">
-<meta property="og:title" content="纯粹的Hexo-搭建过程记录">
-<meta property="og:url" content="http://yoursite.com/2018/03/08/纯粹的Hexo-搭建过程记录/index.html">
+<meta property="og:title" content="Let Us Live">
+<meta property="og:url" content="http://yoursite.com/2018/03/08/Redis-源码-SDS字符串/index.html">
 <meta property="og:site_name" content="Let Us Live">
-<meta property="og:description" content="使用Hexo的原因第三方的博客总是有各种各样的限制，不妨使用Hexo对于自己想要的模板与样式进行个性化定制">
+<meta property="og:description" content="title: Redis 源码–SDS字符串date: 2018-03-08 17:11:53tags: [Redis] categories: Redis#Redis–SDS字符串搬运自简书的旧文，重新进行了一下排版(https://www.jianshu.com/p/28719b3e157c) ##SDS的结构定义C 中，字符串是以字符数组的形式表示的，其结尾是空字符‘\0’,用以标识这个字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T08:43:45.503Z">
+<meta property="og:updated_time" content="2018-03-08T11:26:53.721Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="纯粹的Hexo-搭建过程记录">
-<meta name="twitter:description" content="使用Hexo的原因第三方的博客总是有各种各样的限制，不妨使用Hexo对于自己想要的模板与样式进行个性化定制">
+<meta name="twitter:title" content="Let Us Live">
+<meta name="twitter:description" content="title: Redis 源码–SDS字符串date: 2018-03-08 17:11:53tags: [Redis] categories: Redis#Redis–SDS字符串搬运自简书的旧文，重新进行了一下排版(https://www.jianshu.com/p/28719b3e157c) ##SDS的结构定义C 中，字符串是以字符数组的形式表示的，其结尾是空字符‘\0’,用以标识这个字">
 
 
 
@@ -134,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/08/纯粹的Hexo-搭建过程记录/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/08/Redis-源码-SDS字符串/"/>
 
 
 
 
 
-  <title>纯粹的Hexo-搭建过程记录 | Let Us Live</title>
+  <title> | Let Us Live</title>
   
 
 
@@ -283,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/纯粹的Hexo-搭建过程记录/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/Redis-源码-SDS字符串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Misleadingrei">
@@ -300,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">纯粹的Hexo-搭建过程记录</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -312,7 +311,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T14:51:40+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T19:26:53+08:00">
                 2018-03-08
               </time>
             
@@ -322,28 +321,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo博客搭建记录/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo博客搭建记录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -372,60 +349,17 @@
       
 
       
-        <h2 id="使用Hexo的原因"><a href="#使用Hexo的原因" class="headerlink" title="使用Hexo的原因"></a>使用Hexo的原因</h2><p>第三方的博客总是有各种各样的限制，不妨使用Hexo对于自己想要的模板与样式进行个性化定制<br><a id="more"></a></p>
-<h2 id="必要的准备工作"><a href="#必要的准备工作" class="headerlink" title="必要的准备工作"></a>必要的准备工作</h2><p>这里默认大家都有了github，<a href="https://github.com/" target="_blank" rel="noopener">没有的话可以去世界上最大的同性交友网站去注册一个</a>，因为要基于github来托管自己的文章，所以需要提前新建一个github的repository，这里对于仓库的名字是有限制的，必须是<strong>github.你的github用户名字.io</strong></p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>本人在Centos下使用的hexo，因为hexo是基于node.js的静态博客，于是必要依赖是node.js，去官网选择最新的稳定版本就好了(LST)<br><a href="https://nodejs.org/en/" target="_blank" rel="noopener">点这里</a><br>linux下的安装稍微有点不一样，<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">参考</a><br>如果在bash下使用node -v 跳出版本号，那么就安装成功了</p>
-<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>新建一个你想要保存的日志文件夹，之后我们的日志和hexo文件都会保存在这里，cd 到这个日志文件夹 ，执行 npm i -g hexo 进行安装，同样的，使用hexo -v进行安装验证。安装成功之后执行hexo init 进行初始化产生必要文件。</p>
-<h3 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h3><p>如果有ssh免密码登录的需求的话，可以考虑使用SSH方式来进行推送登录，否则则可以考虑http用户名和密码登录。首先是必要的SSH公私钥的产生过程使用 </p>
-<blockquote>
-<p>ssh-keygen -t rsa -C “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>“</p>
-</blockquote>
-<p>产生公私钥，默认情况下公私钥的位置是～/.ssh/<br>使用</p>
-<blockquote>
-<p>cat ～/.is_rad.pub</p>
-</blockquote>
-<p>显示自己的公钥，将其复制到github的公钥上去。<br>使用</p>
-<blockquote>
-<p>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p>
-</blockquote>
-<p>来测试SSH是否链接成功，如果成功的话，则会出现</p>
-<blockquote>
-<p>You’ve successfully authenticated, but GitHub does not provide shell access.</p>
-</blockquote>
-<h3 id="Hexo的本地部署"><a href="#Hexo的本地部署" class="headerlink" title="Hexo的本地部署"></a>Hexo的本地部署</h3><p>修改自己的博客目录下的（亦即是Hexo目录下的_config.yml配置文件）来完成部署，注意此时有<br><strong>坑一号</strong><br>yml文件对于格式是有具体要求的，如果格式错误的话会导致deploy过程无法成功。可以参考<a href="https://www.zhihu.com/question/29437235" target="_blank" rel="noopener">知乎此问</a>具体的要求是</p>
-<blockquote>
-<p><strong>冒号之后必须是有一个半角空格</strong></p>
-</blockquote>
-<p>如果使用SSH</p>
-<blockquote>
-<p>deploy:<br>  type: git<br>  repo: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourgithubName/YourgithubName.github.io.git<br>  branch: master</p>
-</blockquote>
-<p>如果使用https</p>
-<blockquote>
-<p>deploy:<br>  type: git<br>  repo: <a href="https://github.com/YourgithubName/YourgithubName.github.io.git" target="_blank" rel="noopener">https://github.com/YourgithubName/YourgithubName.github.io.git</a><br>  branch: master</p>
-</blockquote>
-<p>配置完成之后，可以在本地端口进行本地端的预部署，由于hexo在3.0之后把服务器独立成个别模块，需要单独安装：npm i hexo-server。<br>之后执行：</p>
-<blockquote>
-<p>hexo clean<br> hexo generate<br> hexo server</p>
-</blockquote>
-<p>打开localhost:4000,4000是Hexo的默认端口，当然也可以通过Hexo s -p 来指定端口。在某些情况下会出现<br><strong>坑二</strong><br>打开localhost：4000的时候是有概率没有响应的，这时有大概率是端口被占用了，而且这个概率在window下还是挺高的哈哈哈哈，因为有个国内的PDF厂商阅读器的某个进程一直占着这个端口<a href="http://blog.csdn.net/u012246342/article/details/51543370" target="_blank" rel="noopener">参考</a>，这个时候可以考虑换端口，也可以考虑kill掉这个进程。<br>如果没有问题的话应该可以看到Hexo的页面了。</p>
-<h3 id="Hexo的上传部署"><a href="#Hexo的上传部署" class="headerlink" title="Hexo的上传部署"></a>Hexo的上传部署</h3><p>执行</p>
-<blockquote>
-<p>npm install hexo-deployer-git –save</p>
-</blockquote>
-<p>来保存hexo的git部署器。<br>安装完成之后<br>持行：</p>
-<blockquote>
-<p>hexo clean<br>hexo generate<br>hexo deploy</p>
-</blockquote>
-<p>ok,可以去github上找自己的博客咯</p>
-<blockquote>
-<p><a href="http://yourgithubname.github.io" target="_blank" rel="noopener">http://yourgithubname.github.io</a></p>
-</blockquote>
-<h3 id="个性化定制"><a href="#个性化定制" class="headerlink" title="个性化定制"></a>个性化定制</h3><p>可以去Hexo自己的主题仓<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a><br>或者是看看有人爬的结果<br><a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">https://www.zhihu.com/question/24422335</a><br>更换主题很简单，只需要修改_config.yml配置文件下theme对应的主题配置就好了</p>
-<blockquote>
-<p>Extensions<br> Plugins: <a href="https://hexo.io/plugins/" target="_blank" rel="noopener">https://hexo.io/plugins/</a><br> Themes: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a><br> theme: landscape-plus</p>
-</blockquote>
-<p>配置完以后重新genarate 和delpoy就好了 </p>
+        <hr>
+<p>title: Redis 源码–SDS字符串<br>date: 2018-03-08 17:11:53<br>tags: [Redis]</p>
+<h2 id="categories-Redis"><a href="#categories-Redis" class="headerlink" title="categories: Redis"></a>categories: Redis</h2><p>#Redis–SDS字符串<br>搬运自简书的旧文，重新进行了一下排版(<a href="https://www.jianshu.com/p/28719b3e157c" target="_blank" rel="noopener">https://www.jianshu.com/p/28719b3e157c</a>)</p>
+<p>##SDS的结构定义<br>C 中，字符串是以字符数组的形式表示的，其结尾是空字符‘\0’,用以标识这个字符串的结束（null-terminated）。这样做的好处是字符串的表示灵活，但获取其长度的操作strlen()的时间复杂度是O(N），这样线性的效率对于频繁的字符串操作是不利的，所以Redis自己创建了一种字符串类型用以标识字符串，这就是SDS。<br>首先，SDS的定义位于SDS.h的sdshdr struct中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct sdshdr &#123;</span><br><span class="line">    </span><br><span class="line">    // buf 中已占用空间的长度</span><br><span class="line">    int len;</span><br><span class="line"></span><br><span class="line">    // buf 中剩余可用空间的长度</span><br><span class="line">    int free;</span><br><span class="line"></span><br><span class="line">    // 数据空间</span><br><span class="line">    char buf[]; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意 结构体中声明的char buf[] 是一个长度为零的数组，这里在结构体中起到的是占位作用，于是sizeof(sdshdr)是不包括char数组空间的，在本人的环境下，sizeof（sdshdr）是8个字节。在源码中会频繁的使用一个指向char数组的pointer减去sizeof（sdshdr）来表示结构体的起始位置。注意，堆是向高地址生长的。所以是数组位于结构体起始位置上方。</p>
+<p>SDS的长度不再由‘\0’来表示而是通过sdshdr.len来表示，这样取字符串长度的时间由O（N）下降到了O(1).SDS在buf数组的末尾仍然引入了‘/0’，为的是兼容一些C的字符串操作库函数。len表示的是字符串有效长度，语义与STRLEN类似。通过不再使用NULL-TERMINZTED String，Redis做到了其字符串是二进制安全的（SDS中间可以存在空字符‘\0’）.通过len我们知道其长度在哪结束。</p>
+<p>##相关的内存分配算法</p>
+<p>还值得一提的是SDS的内存分配算法。因为在堆上分配内存通常是一个耗时间的系统调用，所以在设计时Redis通过预分配和惰性删除的手段尽量减少在堆上分配内存的次数以提高速度。SDS的内存分配算法主要是在其sdsMakeRoomFor中实现的。</p>
+<p>预分配是指库为SDS额外预先分配了空间，而惰性删除是指在对于SDS做出减少长度的操作时并不立刻清空这部分减少的内存，而是将这部分多余出来的内存用free表示以供后面使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">sds sdsMakeRoomFor(sds s, size_t addlen) &#123;</span><br><span class="line"></span><br><span class="line">    struct sdshdr *sh, *newsh;</span><br><span class="line"></span><br><span class="line">    // 获取 s 目前的空余空间长度</span><br><span class="line">    size_t free = sdsavail(s);</span><br><span class="line"></span><br><span class="line">    size_t len, newlen;</span><br><span class="line"></span><br><span class="line">    // s 目前的空余空间已经足够，无须再进行扩展，直接返回</span><br><span class="line">    if (free &gt;= addlen) return s;</span><br><span class="line"></span><br><span class="line">    // 获取 s 目前已占用空间的长度</span><br><span class="line">    len = sdslen(s);</span><br><span class="line">    sh = (void*) (s-(sizeof(struct sdshdr)));</span><br><span class="line"></span><br><span class="line">    // s 最少需要的长度</span><br><span class="line">    newlen = (len+addlen);</span><br><span class="line"></span><br><span class="line">    // 根据新长度，为 s 分配新空间所需的大小</span><br><span class="line">    if (newlen &lt; SDS_MAX_PREALLOC)</span><br><span class="line">        // 如果新长度小于 SDS_MAX_PREALLOC </span><br><span class="line">        // 那么为它分配两倍于所需长度的空间</span><br><span class="line">        newlen *= 2;</span><br><span class="line">    else</span><br><span class="line">        // 否则，分配长度为目前长度加上 SDS_MAX_PREALLOC</span><br><span class="line">        newlen += SDS_MAX_PREALLOC;</span><br><span class="line">    // T = O(N)</span><br><span class="line">    newsh = zrealloc(sh, sizeof(struct sdshdr)+newlen+1);</span><br><span class="line"></span><br><span class="line">    // 内存不足，分配失败，返回</span><br><span class="line">    if (newsh == NULL) return NULL;</span><br><span class="line"></span><br><span class="line">    // 更新 sds 的空余长度</span><br><span class="line">    newsh-&gt;free = newlen - len;</span><br><span class="line"></span><br><span class="line">    // 返回 sds</span><br><span class="line">    return newsh-&gt;buf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 如果新长度小于 SDS_MAX_PREALLOC 那么为它分配两倍于所需长度的空间，否则，分配长度为目前长度加上 SDS_MAX_PREALLOC。<br> SDS_MAX_PREALLOC是一个可以调整的值，默认是1MB。<br>通过分配 现有长度两倍或者现有长度加 SDS_MAX_PREALLOC，当下次再次进行分配是可以从free中直接分配空余空间而不再系统调用分配节省了时间</p>
+<p>##有待商榷的点<br>其实以两倍大小来扩容SDS是一个对于cache不那么友好的分配方，为了充分的对cache友好，其他库对于内存的分配都是小于2倍来扩容的，例如java的arraylist和facebook的folly库，<br>想要阅读更多的话，请参考：<a href="https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md" target="_blank" rel="noopener">https://github.com/facebook/folly/blob/master/folly/docs/FBVector.md</a><br><a href="http://www.drdobbs.com/c-made-easier-how-vectors-grow/184401375" target="_blank" rel="noopener">http://www.drdobbs.com/c-made-easier-how-vectors-grow/184401375</a><br><a href="https://www.zhihu.com/question/36538542/answer/67943610" target="_blank" rel="noopener">https://www.zhihu.com/question/36538542/answer/67943610</a></p>
 
       
     </div>
@@ -441,12 +375,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
-          
-        </div>
-      
 
       
       
@@ -456,15 +384,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/03/08/纯粹的Hexo-搭建过程记录/" rel="next" title="纯粹的Hexo-搭建过程记录">
+                <i class="fa fa-chevron-left"></i> 纯粹的Hexo-搭建过程记录
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/08/Redis-源码-SDS字符串/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -598,7 +526,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Hexo的原因"><span class="nav-number">1.</span> <span class="nav-text">使用Hexo的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必要的准备工作"><span class="nav-number">2.</span> <span class="nav-text">必要的准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">3.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装node-js"><span class="nav-number">3.1.</span> <span class="nav-text">安装node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Hexo"><span class="nav-number">3.2.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置SSH"><span class="nav-number">3.3.</span> <span class="nav-text">配置SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo的本地部署"><span class="nav-number">3.4.</span> <span class="nav-text">Hexo的本地部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo的上传部署"><span class="nav-number">3.5.</span> <span class="nav-text">Hexo的上传部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个性化定制"><span class="nav-number">3.6.</span> <span class="nav-text">个性化定制</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-Redis"><span class="nav-number">1.</span> <span class="nav-text">categories: Redis</span></a></li></ol></div>
             
 
           </div>
