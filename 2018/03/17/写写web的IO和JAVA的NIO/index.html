@@ -97,14 +97,14 @@
 <meta name="description" content="一个最简单的TINYServer先来看看一个最简单的停等服务器吧！这个例子一般都是教材书给的那种最原始的，但是也是最清晰的web服务器实现。">
 <meta name="keywords" content="NIO,JAVA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="写写web的IO和JAVA的NIO">
+<meta property="og:title" content="写写web的IO和JAVA的NIO:Part 1">
 <meta property="og:url" content="http://yoursite.com/2018/03/17/写写web的IO和JAVA的NIO/index.html">
 <meta property="og:site_name" content="Let Us Live">
 <meta property="og:description" content="一个最简单的TINYServer先来看看一个最简单的停等服务器吧！这个例子一般都是教材书给的那种最原始的，但是也是最清晰的web服务器实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-17T03:07:05.515Z">
+<meta property="og:updated_time" content="2018-03-17T03:10:14.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="写写web的IO和JAVA的NIO">
+<meta name="twitter:title" content="写写web的IO和JAVA的NIO:Part 1">
 <meta name="twitter:description" content="一个最简单的TINYServer先来看看一个最简单的停等服务器吧！这个例子一般都是教材书给的那种最原始的，但是也是最清晰的web服务器实现。">
 
 
@@ -140,7 +140,7 @@
 
 
 
-  <title>写写web的IO和JAVA的NIO | Let Us Live</title>
+  <title>写写web的IO和JAVA的NIO:Part 1 | Let Us Live</title>
   
 
 
@@ -300,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">写写web的IO和JAVA的NIO</h1>
+          <h1 class="post-title" itemprop="name headline">写写web的IO和JAVA的NIO:Part 1</h1>
         
 
         <div class="post-meta">
@@ -379,8 +379,8 @@
 <p>看起来服务器已经可以正常工作了，客户端确实得到了服务器处理的结果，服务器也完成了自己的任务。但是请考虑一个情况，多个用户线程同时对服务器发起请求。这个时候Tiny服务器明显是不够用的。由于其阻塞的特性，第二个客户端必须等待第一个客户端完成作业，才能得到响应，这就好像是去银行取款，只有一个窗口，大家不得不排队取款，所以效率极差。</p>
 <h2 id="利用多线程改进的模型"><a href="#利用多线程改进的模型" class="headerlink" title="利用多线程改进的模型"></a>利用多线程改进的模型</h2><p>现代的操作系统大多是多核，而多核意味着可以有多个CPU并行的去处理任务。对于CPU来说，线程是其基本的调度单元，可以将线程抽象成为一个CPU的具体执行逻辑（这么说可能稍微有些问题，因为线程不仅仅只抽象了CPU，不过也没什么大问题）。所以可以充分利用多线程模型去改进之前的TinyServer，对于每次到来的请求，我们都开启一个新的线程来处理他们，这样就不会存在一个client必须等待另一个client完成才能执行的尴尬局面了。<br>具体的代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.BufferedWriter;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class MultiThreadServer &#123;</span><br><span class="line">       public static void main(String[] args) throws IOException &#123;</span><br><span class="line">    	   ServerSocket serverSocket = new ServerSocket(2202);</span><br><span class="line">    	   while(true) &#123;</span><br><span class="line">    		   //线程会阻塞在这里直到建立连接并返回连接套接字</span><br><span class="line">    		   Socket socket =serverSocket.accept();</span><br><span class="line">    		   //处理客户端请求的具体逻辑，这里只是简单的打印到控制台并回送给客户端</span><br><span class="line">    		   Thread t = new Thread(new Process(socket));</span><br><span class="line">    		   t.start();</span><br><span class="line">    	   &#125;</span><br><span class="line">       &#125;</span><br><span class="line">  static class  Process implements Runnable &#123;</span><br><span class="line">       	  Socket socket ;</span><br><span class="line">       	  public Process(Socket  socket)&#123;</span><br><span class="line">       	  		this.socket=socket;</span><br><span class="line">		  &#125;</span><br><span class="line"></span><br><span class="line">		   @Override</span><br><span class="line">		   public void run() &#123;</span><br><span class="line">		  //之前的process逻辑在新线程的run方法中执行。</span><br><span class="line">	   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>看上去比之前好了不少，可以并发的处理多个用户端的请求了。上古时代WEB的请求数量不大的时候，确实是这么做的。比如TOMCAT5的默认CONNECTOR，就是使用的这种方式。</p>
-<p>##多线程所导致的问题<br>其实线程对于操作系统来说仍然是很昂贵的，一个线程占去的内存空间可能有500k-1M，对于一台4GB内存的电脑来说，能存在的线程至多不过几千个，而现在的web请求动辄成千上万，所以多线程模型，根本就吃不消高并发。（PS操作系统本身对于进程所能创建的线程个数存在限制，所以之前讨论的线程数量更要打折扣。)另一方面，线程是抢占式的任务，依靠内核来调度，这使得多个线程之前进行上下文切换需要内核管理，在高并发的情况下，大量的CPU时间都要花在上下文切换之中，这显然违背了一开始使用线程提高并发的初衷。归根到底，在大量并发的情况下，线程显得过于重量（尽管相比于进程，它已经算是轻的了）</p>
-<p>##解决之道<br>非阻塞(Non-Blocking I0)与I/O多路复用（其实就是一个线程管理多个IO链接）或者是基于callback的异步，虽然是日记式的瞎写，但突然发现已经写的有点长了，下篇再更吧:)</p>
+<h2 id="多线程所导致的问题"><a href="#多线程所导致的问题" class="headerlink" title="多线程所导致的问题"></a>多线程所导致的问题</h2><p>其实线程对于操作系统来说仍然是很昂贵的，一个线程占去的内存空间可能有500k-1M，对于一台4GB内存的电脑来说，能存在的线程至多不过几千个，而现在的web请求动辄成千上万，所以多线程模型，根本就吃不消高并发。（PS操作系统本身对于进程所能创建的线程个数存在限制，所以之前讨论的线程数量更要打折扣。)另一方面，线程是抢占式的任务，依靠内核来调度，这使得多个线程之前进行上下文切换需要内核管理，在高并发的情况下，大量的CPU时间都要花在上下文切换之中，这显然违背了一开始使用线程提高并发的初衷。归根到底，在大量并发的情况下，线程显得过于重量（尽管相比于进程，它已经算是轻的了）</p>
+<h2 id="解决之道"><a href="#解决之道" class="headerlink" title="解决之道"></a>解决之道</h2><p>非阻塞(Non-Blocking I0)与I/O多路复用（其实就是一个线程管理多个IO链接）或者是基于callback的异步，虽然是日记式的瞎写，但突然发现已经写的有点长了，下篇再更吧:)</p>
 
       
     </div>
@@ -555,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个最简单的TINYServer"><span class="nav-number">1.</span> <span class="nav-text">一个最简单的TINYServer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用多线程改进的模型"><span class="nav-number">2.</span> <span class="nav-text">利用多线程改进的模型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个最简单的TINYServer"><span class="nav-number">1.</span> <span class="nav-text">一个最简单的TINYServer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用多线程改进的模型"><span class="nav-number">2.</span> <span class="nav-text">利用多线程改进的模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程所导致的问题"><span class="nav-number">3.</span> <span class="nav-text">多线程所导致的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决之道"><span class="nav-number">4.</span> <span class="nav-text">解决之道</span></a></li></ol></div>
             
 
           </div>
